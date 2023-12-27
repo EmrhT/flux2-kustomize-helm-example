@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: kedacore/keda
+      chart: keda
       sourceRef:
         kind: HelmRepository
         name: keda
