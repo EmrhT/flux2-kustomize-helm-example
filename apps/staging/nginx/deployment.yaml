@@ -1,22 +1,9 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: nginx
+  name: nginx-deployment
   namespace: nginx
+  labels:
+    app: nginx
 spec:
-  interval: 1h
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./apps/base/nginx-deploy
-  prune: true
-  patches:
-    - patch: |
-        - op: replace
-          path: /spec/replicas
-          value: 2
-      target:
-        kind: Deployment
-        name: nginx-deployment
+  replicas: 2
