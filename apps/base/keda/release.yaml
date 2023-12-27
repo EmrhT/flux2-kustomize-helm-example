@@ -6,7 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: keda
+      chart: kedacore/keda
       sourceRef:
         kind: HelmRepository
         name: keda
@@ -15,5 +15,3 @@ spec:
   install:
     remediation:
       retries: 3
-  # Default values
-  # https://github.com/stefanprodan/podinfo/blob/master/charts/podinfo/values.yaml
