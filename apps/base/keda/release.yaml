@@ -4,13 +4,13 @@ metadata:
   name: keda
   namespace: keda
 spec:
-  releaseName: keda
   chart:
     spec:
       chart: kedacore/keda
       sourceRef:
         kind: HelmRepository
         name: keda
+        namespace: keda
   interval: 50m
   install:
     remediation:
