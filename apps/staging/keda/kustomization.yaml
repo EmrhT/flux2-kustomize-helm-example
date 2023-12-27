@@ -3,3 +3,8 @@ kind: Kustomization
 namespace: keda
 resources:
   - ../../base/keda
+patches:
+  - path: keda-values.yaml
+    target:
+      kind: HelmRelease
+      name: keda
