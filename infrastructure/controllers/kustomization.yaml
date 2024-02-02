@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cert-manager.yaml
   - weave-gitops.yaml
+  - nginx-ingress.yaml
