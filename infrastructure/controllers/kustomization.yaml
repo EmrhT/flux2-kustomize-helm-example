@@ -6,3 +6,4 @@ resources:
   - nginx-ingress.yaml
   - kube-prometheus.yaml
   - kyverno.yaml
+  - keda.yaml
