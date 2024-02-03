@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cluster-issuers.yaml
   - network-policies.yaml
+  - kyverno-policies/*

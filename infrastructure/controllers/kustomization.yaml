@@ -5,3 +5,4 @@ resources:
   - weave-gitops.yaml
   - nginx-ingress.yaml
   - kube-prometheus.yaml
+  - kyverno.yaml
