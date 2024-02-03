@@ -16,7 +16,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: ingress-nginx
+    - name: ingress-nginx/ingress-nginx
   interval: 60m
   chart:
     spec:
