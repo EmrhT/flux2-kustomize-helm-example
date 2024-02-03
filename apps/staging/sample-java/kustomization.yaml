@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: sample-java
 resources:
   - ../../base/sample-java
+  - ingress.yaml
 patches:
   - path: deployment.yaml
     target:
