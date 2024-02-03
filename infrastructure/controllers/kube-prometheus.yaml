@@ -24,7 +24,7 @@ spec:
   interval: 60m
   chart:
     spec:
-      chart: prometheus-community
+      chart: kube-prometheus-stack
       version: "*"
       sourceRef:
         kind: HelmRepository
