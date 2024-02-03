@@ -7,3 +7,4 @@ resources:
   - kube-prometheus.yaml
   - kyverno.yaml
   - keda.yaml
+  - external-secrets.yaml
