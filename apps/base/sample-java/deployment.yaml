@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-app
+  name: java-webapp
+  namespace: sample-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+        - image: docker.io/mantislogic/sample-java-webapp-jenkins:47cc141bf098d726e11af10d4d34618e5a560a33
+          env:
+            - name: KEY1
+              valueFrom:
+                configMapKeyRef:
+                  name: example-configmap
+                  key: KEY1
+            - name: KEY2
+              valueFrom:
+                configMapKeyRef:
+                  name: example-configmap
+                  key: KEY2
+          livenessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /sample-java-webapp-jenkins/rest/hello
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: web
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /sample-java-webapp-jenkins/rest/hello
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 60
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          startupProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /sample-java-webapp-jenkins/rest/hello
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1

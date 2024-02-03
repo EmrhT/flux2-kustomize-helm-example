@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  KEY1: value1
+  KEY2: value2
+kind: ConfigMap
+metadata:
+  name: example-configmap
+  namespace: sample-java
