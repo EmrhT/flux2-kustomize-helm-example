@@ -34,8 +34,8 @@ spec:
   values:
     controller:
       ingressClass: nginx
-      service: # comment out service properties when deploying to public cloud
-        type: NodePort
+      service: # comment out service properties when deploying to public cloud, it will convert to default LoadBalancer
+        type: NodePort # which is what we'd want there
         targetPorts:
           http: 31576
           https: 30316
