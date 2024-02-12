@@ -52,6 +52,8 @@ spec:
         - name: tempo-traces
           policy: none
           purge: false
+      persistence:
+        size: 2Gi
     traces:
       otlp:
         grpc:
