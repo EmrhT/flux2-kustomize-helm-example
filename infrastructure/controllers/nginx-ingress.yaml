@@ -34,3 +34,8 @@ spec:
   values:
     controller:
       ingressClass: nginx
+      service: # comment out service properties when deploying to public cloud
+        type: NodePort
+        targetPorts:
+          http: 31576
+          https: 30316
