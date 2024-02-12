@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tempo-test
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: tempo-test
+  namespace: tempo-test
+spec:
+  interval: 60m0s
+  url: https://grafana.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: tempo-test
+  namespace: tempo-test
+spec:
+  interval: 60m
+  chart:
+    spec:
+      chart: tempo-distributed
+      version: "*"
+      sourceRef:
+        kind: HelmRepository
+        name: tempo-test
+      interval: 12h
+  # https://github.com/grafana/helm-charts/blob/main/charts/tempo-distributed/values.yaml
+  values:
+    storage:
+      trace:
+        backend: s3
+        s3:
+          access_key: 'grafana-tempo'
+          secret_key: 'supersecret'
+          bucket: 'tempo-traces'
+          endpoint: 'tempo-minio:9000'
+          insecure: true
+    #MinIO storage configuration
+    minio:
+      enabled: true
+      mode: standalone
+      rootUser: grafana-tempo
+      rootPassword: supersecret
+      buckets:
+        # Default Tempo storage bucket
+        - name: tempo-traces
+          policy: none
+          purge: false
+    traces:
+      otlp:
+        grpc:
+          enabled: true
+        http:
+          enabled: true
+      zipkin:
+        enabled: false
+      jaeger:
+        thriftHttp:
+          enabled: false
+      opencensus:
+        enabled: false

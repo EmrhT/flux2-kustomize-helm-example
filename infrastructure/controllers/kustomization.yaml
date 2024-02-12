@@ -8,3 +8,4 @@ resources:
   - kyverno.yaml
   - keda.yaml
   - external-secrets.yaml
+  - tempo-test.yaml
