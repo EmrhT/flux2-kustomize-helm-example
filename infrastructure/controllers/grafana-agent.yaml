@@ -47,7 +47,7 @@ spec:
           otelcol.receiver.otlp "otlp_receiver" {
             // Listen on all available bindable addresses on port 4317 (which is the
             // default OTLP gRPC port) for the OTLP protocol.
-            grpc {
+            http { // default value of this line is grpc instead of http but didn't receive grpc that's coming from sample grafana app
               endpoint = "0.0.0.0:4317"
             }
 
