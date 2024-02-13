@@ -41,6 +41,9 @@ spec:
           bucket: 'tempo-traces'
           endpoint: 'tempo-test-minio:9000'
           insecure: true
+        pool:
+          max_workers: 400
+          queue_depth: 20000
     #MinIO storage configuration
     minio:
       enabled: true
