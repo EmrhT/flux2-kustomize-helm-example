@@ -9,3 +9,4 @@ resources:
   - keda.yaml
   - external-secrets.yaml
   - tempo-test.yaml
+  - grafana-agent.yaml

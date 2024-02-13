@@ -1,0 +1,79 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: grafana-agent
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: grafana-agent
+  namespace: grafana-agent
+spec:
+  interval: 60m0s
+  url: https://grafana.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: grafana-agent
+  namespace: grafana-agent
+spec:
+  interval: 60m
+  chart:
+    spec:
+      chart: grafana-agent
+      version: "*"
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-agent
+      interval: 12h
+  # https://github.com/grafana/helm-charts/blob/main/charts/tempo-distributed/values.yaml
+  values:
+    agent:
+      extraPorts:
+        - name: otlp-grpc
+          port: 4317
+          targetPort: 4317
+          protocol: TCP
+      configMap:
+        create: true
+        content: |-
+          // Creates a receiver for OTLP gRPC.
+          // You can easily add receivers for other protocols by using the correct component
+          // from the reference list at: https://grafana.com/docs/agent/latest/flow/reference/components/
+          otelcol.receiver.otlp "otlp_receiver" {
+            // Listen on all available bindable addresses on port 4317 (which is the
+            // default OTLP gRPC port) for the OTLP protocol.
+            grpc {
+              endpoint = "0.0.0.0:4317"
+            }
+
+            // Output straight to the OTLP gRPC exporter. We would usually do some processing
+            // first, most likely batch processing, but for this example we pass it straight
+            // through.
+            output {
+              traces = [
+                otelcol.exporter.otlp.tempo.input,
+              ]
+            }
+          }
+
+          // Define an OTLP gRPC exporter to send all received traces to GET.
+          // The unique label 'tempo' is added to uniquely identify this exporter.
+          otelcol.exporter.otlp "tempo" {
+              // Define the client for exporting.
+              client {
+                  // Send to the locally running Tempo instance, on port 4317 (OTLP gRPC).
+                  endpoint = "http://tempo-cluster-distributor.tempo-test.svc.cluster.local:3100"
+                  // Disable TLS for OTLP remote write.
+                  tls {
+                      // The connection is insecure.
+                      insecure = true
+                      // Do not verify TLS certificates when connecting.
+                      insecure_skip_verify = true
+                  }
+              }
+          }
