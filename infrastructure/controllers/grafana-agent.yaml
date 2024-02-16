@@ -67,7 +67,7 @@ spec:
               // Define the client for exporting.
               client {
                   // Send to the locally running Tempo instance, on port 4317 (OTLP gRPC).
-                  endpoint = "http://tempo-test-distributor.tempo-test.svc.cluster.local:3100"
+                  endpoint = "http://tempo-test-distributor.tempo-test.svc.cluster.local:4317"
                   // Disable TLS for OTLP remote write.
                   tls {
                       // The connection is insecure.
