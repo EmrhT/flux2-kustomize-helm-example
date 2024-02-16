@@ -83,3 +83,7 @@ spec:
     metricsGenerator:
     # -- Specifies whether a metrics-generator should be deployed
       enabled: true
+      config: 
+        storage:
+          remote_write:
+            - url: "http://kube-prometheus-kube-prome-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
