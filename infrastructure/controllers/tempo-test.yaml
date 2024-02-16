@@ -80,3 +80,6 @@ spec:
     #         paths:
     #           - path: /
     #             pathType: Prefix
+    metricsGenerator:
+    # -- Specifies whether a metrics-generator should be deployed
+      enabled: true
