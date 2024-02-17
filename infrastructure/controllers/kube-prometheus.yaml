@@ -34,3 +34,6 @@ spec:
   values:
     crds:
       enabled: true
+    prometheus:
+      prometheusSpec:
+        enableRemoteWriteReceiver: true
