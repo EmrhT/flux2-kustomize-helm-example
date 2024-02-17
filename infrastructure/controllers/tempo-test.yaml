@@ -85,4 +85,5 @@ spec:
       enabled: true
       config: 
         storage:
-          remote_write: "http://kube-prometheus-kube-prome-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
+          remote_write: 
+          - url: "http://kube-prometheus-kube-prome-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
