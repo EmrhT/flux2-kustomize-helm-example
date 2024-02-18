@@ -88,5 +88,9 @@ spec:
           remote_write: 
           - url: "http://kube-prometheus-kube-prome-prometheus.monitoring.svc.cluster.local:9090/api/v1/write"
     overrides:
-      metrics_generator_processors: span-metrics
+      defaults:
+        metrics_generator:
+          processors: 
+          - span-metrics
+          - service-graphs
 
