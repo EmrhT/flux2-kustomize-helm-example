@@ -37,3 +37,5 @@ spec:
     prometheus:
       prometheusSpec:
         enableRemoteWriteReceiver: true
+        enableFeatures:
+        - exemplar-storage
