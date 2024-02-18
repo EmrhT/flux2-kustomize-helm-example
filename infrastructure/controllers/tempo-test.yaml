@@ -83,6 +83,9 @@ spec:
     metricsGenerator:
     # -- Specifies whether a metrics-generator should be deployed
       enabled: true
+      registry:
+        external_labels:
+          source: tempo
       config: 
         storage:
           remote_write: 
