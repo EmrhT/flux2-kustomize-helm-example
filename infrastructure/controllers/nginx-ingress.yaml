@@ -38,4 +38,4 @@ spec:
         type: NodePort # which is what we'd want there
         targetPorts:
           http: 31576
-          https: 30316
+          https: 30136
